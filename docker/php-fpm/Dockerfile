@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
+    libwebp-dev \
     libonig-dev \
     locales \
     zip \
@@ -16,7 +17,8 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     wget \
-    zsh
+    zsh \
+    libpq-dev
 
 RUN docker-php-ext-configure zip
 
@@ -28,7 +30,10 @@ RUN docker-php-ext-install \
         zip \
         opcache \
         gd \
-	&& docker-php-ext-configure gd --with-freetype --with-jpeg \
+        pdo \
+        pdo_pgsql \
+        pgsql \
+	&& docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
 	&& docker-php-ext-install -j$(nproc) gd
 
 RUN wget https://getcomposer.org/installer -O - -q | php -- --install-dir=/bin --filename=composer --quiet
