@@ -36,7 +36,7 @@ class LoadImagesCommand extends Command
         foreach ($finder as $file) {
             $picture = (new Picture())
                 ->setPath($file->getFilename())
-                ->setHash($phash->getHash(self::PATH.'/'.$file->getFilename(), false));
+                ->setHash($phash->getHash(self::PATH.'/'.$file->getFilename()));
             $this->entityManager->persist($picture);
         }
 

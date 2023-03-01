@@ -34,11 +34,11 @@ class CheckImageCommand extends Command
         $im = $input->getArgument('im');
 
         $phash = new Phash();
-        $hashForCheck = $phash->getHash(LoadImagesCommand::PATH.'/'.$im, false);
+        $hashForCheck = $phash->getHash(LoadImagesCommand::PATH.'/'.$im);
 
-        $pictures = $this->pictureRepository->findAll();
+        $pictures = $this->pictureRepository->findBy(['hash' => $hashForCheck]);
         foreach ($pictures as $picture) {
-            $io->writeln($picture->getPath() . '::: ' . $phash->getSimilarity($hashForCheck, $picture->getHash(), 'BITS'));
+            $io->writeln($picture->getPath());
         }
 
 //        $io->success(\sprintf('Same image is %s', $filename));

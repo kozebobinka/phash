@@ -17,8 +17,8 @@ class Picture
     #[ORM\Column(length: 128)]
     private ?string $path = null;
 
-    #[ORM\Column]
-    private array $hash = [];
+    #[ORM\Column(length: 32)]
+    private ?string $hash = null;
 
     public function getId(): ?int
     {
@@ -37,12 +37,12 @@ class Picture
         return $this;
     }
 
-    public function getHash(): array
+    public function getHash(): ?string
     {
         return $this->hash;
     }
 
-    public function setHash(array $hash): self
+    public function setHash(string $hash): self
     {
         $this->hash = $hash;
 
